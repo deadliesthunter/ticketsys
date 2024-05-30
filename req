@@ -1,0 +1,20 @@
+First of all,
+we are developing the system for general public of any age, so it should be easy to acess, easy to use system.
+
+our main goal is to provide easier way to book the ticket system to stop the long waiting of physical queuing
+
+some basic requirements for the system is (it may change in the future devlopments):
+
+1. welcome and the sarting of the app info
+2. option running movies or upcoming movies
+3. running movies
+   currently runnign movies
+   upcoming movies
+   what movies are going to be released
+4. chose option in running movies
+5. shows availabel seats
+6. user gives the input of the seat they like
+7. ask if they want to book it or cancel
+   if booked then provide booking with details
+   orelse
+   just goto step 2
