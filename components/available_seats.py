@@ -13,22 +13,20 @@ def seat_Picker():
 
     ask_User =input("Enter the seat you want to reserve \n").lower()
     
-    try:
-        if ask_User in seats.values() and "available" in ask_User:
-            confirmation = input("Your seat is currently available. Please press Y/N to reserve the seat \n").upper
-            try:
-                if "Y" in  confirmation:
-                    seats.values = "Reserved"
-                    print("Your seat is sucessfully reserved. Please arrive within 30 mins of the show to acess you reservation")
-                elif "N" in confirmation:
-                    print("N pressed. Reservation Cancelled. Thank you for co-operation")
-            except ValueError:
-                print("Error 101: Incorrect input. Please try again")
-        elif ask_User in seats.values() and "Reserved" not in ask_User:
-            print("Sorry, it is already reserved please try again")
-                #need goto not availabe in python need structured code
-    except ValueError:
-        print("Error: The following seat is not present")
+    if ask_User in seats:
+        if seats[ask_User] == "available":
+            confirmation = input("Your seat is currently available. Please press Y/N to reserve the seat \n").upper()
+            if confirmation == "Y":
+                seats[ask_User] = "reserved"
+                print("Your seat is successfully reserved. Please arrive within 30 mins of the show to access your reservation.")
+            elif confirmation == "N":
+                print("Reservation cancelled. Thank you for your cooperation.")
+            else:
+                print("Error 101: Incorrect input. Please try again.")
+        else:
+            print("Sorry, this seat is already reserved. Please try again.")
+    else:
+        print("Error: The selected seat is not available.")
 
 
 

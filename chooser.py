@@ -1,4 +1,16 @@
-from components import running_movies, upcoming_movies
+import sys
+import os
+
+# Get the current directory and components path
+current_dir = os.path.dirname(__file__)
+components_path = os.path.join(current_dir, 'components')
+
+# Add the components directory to sys.path
+sys.path.append(components_path)
+
+# Import the modules from the components directory
+import running_movies
+import upcoming_movies
 
 def up_Run():
     a = input("""Please Enter To Select:  
