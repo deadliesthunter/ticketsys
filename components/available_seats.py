@@ -1,32 +1,31 @@
-def seat_Picker():
-    seats = {}
-    for i in range(20):
-        seats_a = "a" + str(i+1)
-        seats_b = "b" + str(i+1)
-        seats_c = "c" + str(i+1)
-        seats[seats_a] = "available"
-        seats[seats_b] = "available"
-        seats[seats_c] = "available"
+import sqlite3
 
-    if "available" in seats.values():
-        print(f"the availabel seats are {seats}")
+def seat_Picker():
+    con = sqlite3.connect("movi")
+    cur = con.cursor()
+    seat_no = cur.execute("SELECT seat_num FROM av_seat").fetchall()
+    avaialbility= cur.execute("SELECT Availability FROM av_seat").fetchall()
+    available_seats = cur.execute("SELECT seat_num FROM av_seat WHERE Availability = 'available'").fetchall()
+    available_seats = [seat[0] for seat in available_seats]  # Convert list of tuples to list of strings
+    if available_seats:
+        print(f"The available seats are: {', '.join(available_seats)}")
+    else:
+        print("No available seats.")
+        return
 
     ask_User =input("Enter the seat you want to reserve \n").lower()
     
-    if ask_User in seats:
-        if seats[ask_User] == "available":
+    if ask_User in available_seats:
             confirmation = input("Your seat is currently available. Please press Y/N to reserve the seat \n").upper()
             if confirmation == "Y":
-                seats[ask_User] = "reserved"
+                cur.execute("UPDATE av_seat SET Availability = 'reserved' WHERE seat_num = ?", (ask_User,))
+                con.commit() 
                 print("Your seat is successfully reserved. Please arrive within 30 mins of the show to access your reservation.")
             elif confirmation == "N":
                 print("Reservation cancelled. Thank you for your cooperation.")
             else:
                 print("Error 101: Incorrect input. Please try again.")
-        else:
-            print("Sorry, this seat is already reserved. Please try again.")
     else:
-        print("Error: The selected seat is not available.")
-
-
+        print("Sorry, this seat is already reserved. Please try again.")
+    con.close()
 
